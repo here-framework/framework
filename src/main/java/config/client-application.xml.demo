@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+     <!-- <bean id="restClientProxy" class="com.here.framework.service.client.ServiceProxy">
+    	配置服务客户端调用配置
+    	<constructor-arg>
+    		<bean id="serviceClientConfigBean" class="com.here.framework.service.client.config.ServiceClientConfig">
+				<property name="username">
+					<value>user01</value>
+				</property>
+				<property name="password">
+					<value>tuhao</value>
+				</property>
+				<property name="seed">
+					<bean class="com.here.framework.service.client.config.ServiceSeed">
+							<property name="address">
+								<value>http://localhost:8080/context/service/</value>
+							</property>
+					</bean>
+				</property>
+			</bean>
+    	</constructor-arg>
+	</bean> -->
+</beans>

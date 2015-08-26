@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+        
+        
+    <!-- apache cxf spring support config file list -->
+	<import resource="classpath*:META-INF/cxf/cxf.xml" />
+    <import resource="classpath*:META-INF/cxf/cxf-servlet.xml" />
+    <import resource="classpath*:META-INF/cxf/cxf-extension-*.xml" />
+
+    <!-- <bean class="com.here.framework.service.ServiceRegister">
+		<property name="serviceBean">
+			<bean class="com.here.framework.service.heart.HeartBeat"></bean>
+		</property>
+	</bean> -->
+	
+	<bean class="com.here.framework.service.ServiceRegister">
+		<property name="serviceBean">
+			<bean class="com.here.framework.service.init.DefaultInitServiceImpl"></bean>
+		</property>
+	</bean>
+    <!-- 加载自定义文件 -->
+    <import resource="classpath*:config/service-application.xml"/>
+        
+	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
+		<property name="collectionWrapperMap">
+			<map></map>
+		</property>
+	</bean>
+	<jaxrs:server id="restServiceProxy" address="/">
+		<jaxrs:serviceBeans></jaxrs:serviceBeans>
+		<jaxrs:extensionMappings>
+			<entry key="json" value="application/json"/>
+			<entry key="xml" value="application/xml"/>
+		</jaxrs:extensionMappings>
+		<jaxrs:languageMappings>
+			<entry key="en" value="en-gb"/>  
+		</jaxrs:languageMappings>
+		<jaxrs:providers>  
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />  
+            <bean class="com.here.framework.service.InvokeFaultExceptionMapper" />
+        </jaxrs:providers> 
+	</jaxrs:server>
+	<bean class="com.here.framework.init.BeanInitProcessor">
+		<property name="listener">
+			<bean class="com.here.framework.service.RestServiceServerCreateListener">
+				<property name="beanName" value="restServiceProxy">
+				</property>
+			</bean>
+		</property>
+	</bean>
+</beans>
